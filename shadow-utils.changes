@@ -1,0 +1,18 @@
+* Fri May 27 2011 Anas Nashif <anas.nashif@intel.com> - 4.1.4.3
+- Refine auto-splitting docs
+
+* Sun May 22 2011 Anas Nashif <anas.nashif@intel.com> - 4.1.4.3
+- Update to 4.1.4.3
+- Split documentation
+
+* Fri Mar 26 2010 Anas Nashif <anas.nashif@intel.com> - 4.1.4.2
+- Remove Epoch
+
+* Fri Dec 25 2009 Passion Zhao <passion.zhao@intel.com> - 4.1.4.2
+- Update to 4.1.4.2
+
+* Sun Aug 16 2009 Anas Nashif <anas.nashif@intel.com> - 4.1.4.1
+- Update to 4.1.4.1
+
+* Mon Aug 11 2008 Vincent Huang <chenglan.huang@intel.com>
+- fix salt size problem 
