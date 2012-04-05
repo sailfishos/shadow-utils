@@ -1,15 +1,13 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.1.4.3
+Version: 4.1.5
 Release: 1
 URL: http://pkg-shadow.alioth.debian.org/
 Source0: ftp://pkg-shadow.alioth.debian.org/pub/pkg-shadow/shadow-%{version}.tar.bz2
-Source1: shadow-4.0.17-login.defs
-Source2: shadow-4.0.18.1-useradd
-Patch0: shadow-4.1.4.2-redhat.patch
-Patch1: shadow-4.1.4.1-goodname.patch
-Patch2: shadow-4.1.4.2-leak.patch
-Patch3: shadow-4.1.4.2-fixes.patch
+Source1: shadow-utils.login.defs
+Source2: shadow-utils.useradd
+Patch0: shadow-4.1.5-redhat.patch
+Patch1: shadow-4.1.5-goodname.patch
 License: BSD and GPLv2+
 Group: System/Base
 Requires: setup
@@ -30,8 +28,6 @@ are used for managing group accounts.
 %setup -q -n shadow-%{version}
 %patch0 -p1 -b .redhat
 %patch1 -p1 -b .goodname
-%patch2 -p1 -b .leak
-%patch3 -p1 -b .fixes
 
 %build
 %configure \
@@ -51,7 +47,6 @@ make install DESTDIR=$RPM_BUILD_ROOT gnulocaledir=$RPM_BUILD_ROOT/%{_datadir}/lo
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/default
 install -p -c -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/login.defs
 install -p -c -m 0600 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/default/useradd
-
 
 ln -s useradd $RPM_BUILD_ROOT%{_sbindir}/adduser
 ln -s useradd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/adduser.8
@@ -85,9 +80,6 @@ rm $RPM_BUILD_ROOT/%{_mandir}/man8/logoutd.*
 rm $RPM_BUILD_ROOT/%{_mandir}/man8/nologin.*
 rm $RPM_BUILD_ROOT/%{_mandir}/man8/chgpasswd.*
 rm $RPM_BUILD_ROOT/%{_mandir}/man3/getspnam.*
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %docs_package
 

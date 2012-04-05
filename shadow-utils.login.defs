@@ -1,3 +1,11 @@
+#
+# Please note that the parameters in this configuration file control the
+# behavior of the tools from the shadow-utils component. None of these
+# tools uses the PAM mechanism, and the utilities that use PAM (such as the
+# passwd command) should therefore be configured elsewhere. Refer to
+# /etc/pam.d/system-auth for more information.
+#
+
 # *REQUIRED*
 #   Directory where mailboxes reside, _or_ name of file, relative to the
 #   home directory.  If you _do_ define both, MAIL_DIR takes precedence.
@@ -22,14 +30,20 @@ PASS_WARN_AGE	7
 #
 # Min/max values for automatic uid selection in useradd
 #
-UID_MIN			  500
-UID_MAX			60000
+UID_MIN                  1000
+UID_MAX                 60000
+# System accounts
+SYS_UID_MIN               201
+SYS_UID_MAX               999
 
 #
 # Min/max values for automatic gid selection in groupadd
 #
-GID_MIN			  500
-GID_MAX			60000
+GID_MIN                  1000
+GID_MAX                 60000
+# System accounts
+SYS_GID_MIN               201
+SYS_GID_MAX               999
 
 #
 # If defined, this command is run when removing a user.
@@ -53,6 +67,6 @@ UMASK           077
 #
 USERGROUPS_ENAB yes
 
-# Use MD5 or DES to encrypt password? Red Hat use MD5 by default.
-MD5_CRYPT_ENAB yes
+# Use SHA512 to encrypt password.
+ENCRYPT_METHOD SHA512 
 
