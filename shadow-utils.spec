@@ -8,6 +8,7 @@ Source1: shadow-utils.login.defs
 Source2: shadow-utils.useradd
 Patch0: shadow-4.1.5-redhat.patch
 Patch1: shadow-4.1.5-goodname.patch
+Patch2: shadow-4.1.5-stdarg.patch
 License: BSD and GPLv2+
 Group: System/Base
 Requires: setup
@@ -28,6 +29,7 @@ are used for managing group accounts.
 %setup -q -n shadow-%{version}
 %patch0 -p1 -b .redhat
 %patch1 -p1 -b .goodname
+%patch2 -p1 -b .stdarg
 
 %build
 %configure \

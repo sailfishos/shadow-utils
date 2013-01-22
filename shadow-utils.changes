@@ -1,3 +1,6 @@
+* Tue Jan 22 2013 Oleg Girko <ol+mer@infoserver.ru> - 4.1.5
+- Fix compilation with newer gcc caused by missing stdarg.h include.
+
 * Thu Mar 15 2012 Marko Saukko <marko.saukko@gmail.com> - 4.1.5
 - Update to 4.1.5
 - Fixes MER#271: CVE-2005-4890 shadow-utils
