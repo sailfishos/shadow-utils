@@ -9,6 +9,7 @@ Source2: shadow-utils.useradd
 Patch0: shadow-4.1.5-redhat.patch
 Patch1: shadow-4.1.5-goodname.patch
 Patch2: shadow-4.1.5-stdarg.patch
+Patch3: shadow-utils-aarch64.patch
 License: BSD and GPLv2+
 Group: System/Base
 Requires: setup
@@ -30,6 +31,7 @@ are used for managing group accounts.
 %patch0 -p1 -b .redhat
 %patch1 -p1 -b .goodname
 %patch2 -p1 -b .stdarg
+%patch3 -p1
 
 %build
 %configure \
