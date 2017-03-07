@@ -42,7 +42,8 @@ are used for managing group accounts.
         --disable-nls \
         --without-libcrack \
         --without-libpam \
-        --disable-shared
+        --disable-shared \
+        --with-group-name-max-length=32
 make
 
 %install
