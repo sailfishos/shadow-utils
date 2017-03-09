@@ -1,3 +1,7 @@
+* Wed Mar 08 2017 Igor Zhbanov <i.zhbanov@jolla.com> - 4.1.5-2
+- Set group name maximal length to 32. Fixes JB#37806
+- Update release number to 2.
+
 * Fri May 31 2013 Carsten Munk <carsten.munk@jollamobile.com> - 4.1.5
 - UID/GID from 100000 to 199999 due to supporting droid containers
 
