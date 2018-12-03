@@ -1,18 +1,22 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.1.5
-Release: 2
-URL: http://pkg-shadow.alioth.debian.org/
-Source0: ftp://pkg-shadow.alioth.debian.org/pub/pkg-shadow/shadow-%{version}.tar.bz2
+Version: 4.6
+Release: 1
+URL: https://github.com/shadow-maint/shadow/
+Source0: %{name}-%{version}.tar.xz
 Source1: shadow-utils.login.defs
 Source2: shadow-utils.useradd
-Patch0: shadow-4.1.5-redhat.patch
-Patch1: shadow-4.1.5-goodname.patch
+Patch0: shadow-4.6-redhat.patch
+Patch1: shadow-4.5-goodname.patch
 Patch2: shadow-4.1.5-stdarg.patch
-Patch3: shadow-utils-aarch64.patch
 License: BSD and GPLv2+
 Group: System/Base
 Requires: setup
+BuildRequires: autoconf
+BuildRequires: gettext-devel
+BuildRequires: automake
+BuildRequires: libtool
+BuildRequires: byacc
 
 %description
 The shadow-utils package includes the necessary programs for
@@ -27,13 +31,13 @@ managing user accounts. The groupadd, groupdel, and groupmod commands
 are used for managing group accounts.
 
 %prep
-%setup -q -n shadow-%{version}
+%setup -q -n %{name}-%{version}/upstream
 %patch0 -p1 -b .redhat
 %patch1 -p1 -b .goodname
 %patch2 -p1 -b .stdarg
-%patch3 -p1
 
 %build
+autoreconf -v -f --install
 %configure \
         --enable-shadowgrp \
         --without-audit \
@@ -43,7 +47,13 @@ are used for managing group accounts.
         --without-libcrack \
         --without-libpam \
         --disable-shared \
-        --with-group-name-max-length=32
+        --with-group-name-max-length=32 \
+        --disable-man
+
+# Force to skip man because generation does not currently work for us
+# and even with --disable-man it tries to install them
+echo -e "all:\ninstall:" > man/Makefile
+
 make
 
 %install
@@ -54,7 +64,6 @@ install -p -c -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/login.defs
 install -p -c -m 0600 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/default/useradd
 
 ln -s useradd $RPM_BUILD_ROOT%{_sbindir}/adduser
-ln -s useradd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/adduser.8
 
 # Remove binaries we don't use.
 rm $RPM_BUILD_ROOT/%{_bindir}/chfn
@@ -64,48 +73,20 @@ rm $RPM_BUILD_ROOT/%{_bindir}/groups
 rm $RPM_BUILD_ROOT/%{_bindir}/login
 rm $RPM_BUILD_ROOT/%{_bindir}/passwd
 rm $RPM_BUILD_ROOT/%{_bindir}/su
+rm $RPM_BUILD_ROOT/%{_bindir}/newgidmap
+rm $RPM_BUILD_ROOT/%{_bindir}/newuidmap
 rm $RPM_BUILD_ROOT/%{_sysconfdir}/login.access
 rm $RPM_BUILD_ROOT/%{_sysconfdir}/limits
 rm $RPM_BUILD_ROOT/%{_sbindir}/logoutd
 rm $RPM_BUILD_ROOT/%{_sbindir}/nologin
 rm $RPM_BUILD_ROOT/%{_sbindir}/chgpasswd
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/chfn.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/chsh.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/expiry.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/groups.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/login.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/passwd.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man1/su.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man5/limits.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man5/login.access.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man5/passwd.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man5/porttime.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man5/suauth.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man8/logoutd.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man8/nologin.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man8/chgpasswd.*
-rm $RPM_BUILD_ROOT/%{_mandir}/man3/getspnam.*
 
-%docs_package
-
-%files 
+%files
 %defattr(-,root,root)
 %dir %{_sysconfdir}/default
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
 %attr(0600,root,root)   %config(noreplace) %{_sysconfdir}/default/useradd
-%{_bindir}/sg
-%{_bindir}/chage
-%{_bindir}/faillog
-%{_bindir}/gpasswd
-%{_bindir}/lastlog
-%{_bindir}/newgrp
-%{_sbindir}/adduser
+%{_bindir}/*
+%{_sbindir}/*
 %attr(0750,root,root)   %{_sbindir}/user*
 %attr(0750,root,root)   %{_sbindir}/group*
-%{_sbindir}/grpck
-%{_sbindir}/pwck
-%{_sbindir}/*conv
-%{_sbindir}/chpasswd
-%{_sbindir}/newusers
-%{_sbindir}/vipw
-%{_sbindir}/vigr
