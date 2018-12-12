@@ -1,3 +1,6 @@
+* Mon Dec 03 2018 Marko Kenttälä <marko.kenttala@jolla.com> - 4.6-1
+- Update to 4.6, fixes jb#43967
+
 * Wed Mar 08 2017 Igor Zhbanov <i.zhbanov@jolla.com> - 4.1.5-2
 - Set group name maximal length to 32. Fixes JB#37806
 - Update release number to 2.
@@ -32,4 +35,4 @@
 - Update to 4.1.4.1
 
 * Mon Aug 11 2008 Vincent Huang <chenglan.huang@intel.com>
-- fix salt size problem 
+- fix salt size problem
