@@ -1,16 +1,14 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.6
+Version: 4.8.1
 Release: 1
 URL: https://github.com/shadow-maint/shadow/
 Source0: %{name}-%{version}.tar.xz
 Source1: shadow-utils.login.defs
 Source2: shadow-utils.useradd
 Patch0: shadow-4.6-redhat.patch
-Patch1: shadow-4.5-goodname.patch
-Patch2: shadow-4.1.5-stdarg.patch
-License: BSD and GPLv2+
-Group: System/Base
+Patch1: shadow-4.8-goodname.patch
+License: BSD
 Requires: setup
 BuildRequires: autoconf
 BuildRequires: gettext-devel
@@ -31,10 +29,7 @@ managing user accounts. The groupadd, groupdel, and groupmod commands
 are used for managing group accounts.
 
 %prep
-%setup -q -n %{name}-%{version}/upstream
-%patch0 -p1 -b .redhat
-%patch1 -p1 -b .goodname
-%patch2 -p1 -b .stdarg
+%autosetup -p1 -n %{name}-%{version}/upstream
 
 %build
 autoreconf -v -f --install

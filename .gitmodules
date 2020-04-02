@@ -1,3 +1,3 @@
 [submodule "upstream"]
 	path = upstream
-	url = git://github.com/shadow-maint/shadow.git
+	url = https://git.sailfishos.org/mirror/shadow.git
