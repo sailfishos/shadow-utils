@@ -15,6 +15,7 @@ BuildRequires: gettext-devel
 BuildRequires: automake
 BuildRequires: libtool
 BuildRequires: byacc
+BuildRequires: pkgconfig(libcrypt)
 
 %description
 The shadow-utils package includes the necessary programs for
