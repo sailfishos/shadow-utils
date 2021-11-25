@@ -6,9 +6,11 @@ URL: https://github.com/shadow-maint/shadow/
 Source0: %{name}-%{version}.tar.xz
 Source1: shadow-utils.login.defs
 Source2: shadow-utils.useradd
+Source3: gpl-2.0.txt
+Source4: shadow-bsd.txt
 Patch0: shadow-4.6-redhat.patch
 Patch1: shadow-4.8-goodname.patch
-License: BSD
+License: BSD and GPLv2+
 Requires: setup
 BuildRequires: autoconf
 BuildRequires: gettext-devel
@@ -50,7 +52,9 @@ autoreconf -v -f --install
 # and even with --disable-man it tries to install them
 echo -e "all:\ninstall:" > man/Makefile
 
-make
+%make_build
+
+cp -a %{SOURCE3} %{SOURCE4} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -79,6 +83,7 @@ rm $RPM_BUILD_ROOT/%{_sbindir}/chgpasswd
 
 %files
 %defattr(-,root,root)
+%license gpl-2.0.txt shadow-bsd.txt
 %dir %{_sysconfdir}/default
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
 %attr(0600,root,root)   %config(noreplace) %{_sysconfdir}/default/useradd
