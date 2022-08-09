@@ -73,8 +73,6 @@ rm $RPM_BUILD_ROOT/%{_bindir}/groups
 rm $RPM_BUILD_ROOT/%{_bindir}/login
 rm $RPM_BUILD_ROOT/%{_bindir}/passwd
 rm $RPM_BUILD_ROOT/%{_bindir}/su
-rm $RPM_BUILD_ROOT/%{_bindir}/newgidmap
-rm $RPM_BUILD_ROOT/%{_bindir}/newuidmap
 rm $RPM_BUILD_ROOT/%{_sysconfdir}/login.access
 rm $RPM_BUILD_ROOT/%{_sysconfdir}/limits
 rm $RPM_BUILD_ROOT/%{_sbindir}/logoutd
