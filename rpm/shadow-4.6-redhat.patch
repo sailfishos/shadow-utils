@@ -1,16 +1,17 @@
-diff -up shadow-4.6/src/useradd.c.redhat shadow-4.6/src/useradd.c
---- shadow-4.6/src/useradd.c.redhat	2018-04-29 18:42:37.000000000 +0200
-+++ shadow-4.6/src/useradd.c	2018-05-28 13:37:16.695651258 +0200
-@@ -98,7 +98,7 @@ const char *Prog;
- static gid_t def_group = 100;
+diff --git a/src/useradd.c b/src/useradd.c
+index 347334a6..238a962d 100644
+--- a/src/useradd.c
++++ b/src/useradd.c
+@@ -95,7 +95,7 @@ static gid_t def_group = 1000;
+ static const char *def_groups = "";
  static const char *def_gname = "other";
  static const char *def_home = "/home";
--static const char *def_shell = "";
+-static const char *def_shell = "/bin/bash";
 +static const char *def_shell = "/sbin/nologin";
  static const char *def_template = SKEL_DIR;
- static const char *def_create_mail_spool = "no";
- 
-@@ -108,7 +108,7 @@ static const char *def_expire = "";
+ static const char *def_usrtemplate = USRSKELDIR;
+ static const char *def_create_mail_spool = "yes";
+@@ -107,7 +107,7 @@ static const char *def_expire = "";
  #define	VALID(s)	(strcspn (s, ":\n") == strlen (s))
  
  static const char *user_name = "";
@@ -19,19 +20,16 @@ diff -up shadow-4.6/src/useradd.c.redhat shadow-4.6/src/useradd.c
  static uid_t user_id;
  static gid_t user_gid;
  static const char *user_comment = "";
-@@ -1114,9 +1114,9 @@ static void process_flags (int argc, cha
+@@ -1215,7 +1215,7 @@ static void process_flags (int argc, char **argv)
+ 			{NULL, 0, NULL, '\0'}
  		};
  		while ((c = getopt_long (argc, argv,
+-					 "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:U"
++					 "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:U"
  #ifdef WITH_SELINUX
--		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:UZ:",
-+		                         "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:UZ:",
- #else				/* !WITH_SELINUX */
--		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:U",
-+		                         "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:U",
- #endif				/* !WITH_SELINUX */
- 		                         long_options, NULL)) != -1) {
- 			switch (c) {
-@@ -1267,6 +1267,7 @@ static void process_flags (int argc, cha
+ 		                         "Z:"
+ #endif				/* WITH_SELINUX */
+@@ -1383,6 +1383,7 @@ static void process_flags (int argc, char **argv)
  			case 'M':
  				Mflg = true;
  				break;
