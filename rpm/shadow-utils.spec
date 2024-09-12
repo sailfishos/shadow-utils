@@ -1,6 +1,6 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.8.1
+Version: 4.16
 Release: 1
 URL: https://github.com/shadow-maint/shadow/
 Source0: %{name}-%{version}.tar.xz
@@ -9,7 +9,10 @@ Source2: shadow-utils.useradd
 Source3: gpl-2.0.txt
 Source4: shadow-bsd.txt
 Patch0: shadow-4.6-redhat.patch
-Patch1: shadow-4.8-goodname.patch
+Patch1: shadow-4.15.1-audit-update.patch
+Patch2: shadow-4.15.0-manfix.patch
+Patch3: shadow-4.15.0-date-parsing.patch
+Patch4: shadow-4.15.0-account-tools-setuid.patch
 License: BSD and GPLv2+
 Requires: setup
 BuildRequires: autoconf
@@ -46,7 +49,8 @@ autoreconf -v -f --install
         --without-libpam \
         --disable-shared \
         --with-group-name-max-length=32 \
-        --disable-man
+        --disable-man \
+        --without-libbsd
 
 # Force to skip man because generation does not currently work for us
 # and even with --disable-man it tries to install them
@@ -79,8 +83,11 @@ rm $RPM_BUILD_ROOT/%{_sbindir}/logoutd
 rm $RPM_BUILD_ROOT/%{_sbindir}/nologin
 rm $RPM_BUILD_ROOT/%{_sbindir}/chgpasswd
 
+# Remove libsuid(-devel) files
+rm $RPM_BUILD_ROOT/%{_includedir}/shadow/subid.h
+rm $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
+
 %files
-%defattr(-,root,root)
 %license gpl-2.0.txt shadow-bsd.txt
 %dir %{_sysconfdir}/default
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
