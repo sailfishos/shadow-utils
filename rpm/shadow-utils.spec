@@ -34,6 +34,12 @@ for all users. The useradd, userdel, and usermod commands are used for
 managing user accounts. The groupadd, groupdel, and groupmod commands
 are used for managing group accounts.
 
+%package devel
+Summary: The shadow-utils subid developer package
+
+%description devel
+The shadow-utils subid developer files
+
 %prep
 %autosetup -p1 -n %{name}-%{version}/upstream
 
@@ -83,10 +89,6 @@ rm $RPM_BUILD_ROOT/%{_sbindir}/logoutd
 rm $RPM_BUILD_ROOT/%{_sbindir}/nologin
 rm $RPM_BUILD_ROOT/%{_sbindir}/chgpasswd
 
-# Remove libsuid(-devel) files
-rm $RPM_BUILD_ROOT/%{_includedir}/shadow/subid.h
-rm $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
-
 %files
 %license gpl-2.0.txt shadow-bsd.txt
 %dir %{_sysconfdir}/default
@@ -96,3 +98,7 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_sbindir}/*
 %attr(0750,root,root)   %{_sbindir}/user*
 %attr(0750,root,root)   %{_sbindir}/group*
+
+%files devel
+%{_includedir}/shadow/subid.h
+%{_libdir}/libsubid.a
