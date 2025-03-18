@@ -105,9 +105,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_bindir}/faillog
 %{_bindir}/getsubids
 %{_bindir}/sg
+%attr(0755,root,root) %caps(cap_setgid=ep) %{_bindir}/newgidmap
+%attr(0755,root,root) %caps(cap_setuid=ep) %{_bindir}/newuidmap
 %defattr(4755,root,root,-)
 %{_bindir}/chage
 %{_bindir}/gpasswd
-%{_bindir}/newgidmap
 %{_bindir}/newgrp
-%{_bindir}/newuidmap
