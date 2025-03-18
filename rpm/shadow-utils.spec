@@ -92,7 +92,22 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %dir %{_sysconfdir}/default
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
 %attr(0600,root,root)   %config(noreplace) %{_sysconfdir}/default/useradd
-%{_bindir}/*
-%{_sbindir}/*
 %attr(0750,root,root)   %{_sbindir}/user*
 %attr(0750,root,root)   %{_sbindir}/group*
+%{_sbindir}/adduser
+%{_sbindir}/chpasswd
+%{_sbindir}/*conv
+%{_sbindir}/grpck
+%{_sbindir}/newusers
+%{_sbindir}/pwck
+%{_sbindir}/vipw
+%{_sbindir}/vigr
+%{_bindir}/faillog
+%{_bindir}/getsubids
+%{_bindir}/sg
+%defattr(4755,root,root,-)
+%{_bindir}/chage
+%{_bindir}/gpasswd
+%{_bindir}/newgidmap
+%{_bindir}/newgrp
+%{_bindir}/newuidmap
